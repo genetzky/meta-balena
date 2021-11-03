@@ -67,6 +67,7 @@ module.exports = {
     const Balena = this.require("components/balena/sdk");
     // used for `preload`
     const CLI = this.require("components/balena/cli");
+    const utils = this.require('common/utils');
 
     await fse.ensureDir(this.suite.options.tmpdir);
 
@@ -87,6 +88,25 @@ module.exports = {
         this.suite.options.workerUrl, 
         this.suite.options.balena.organization, 
         join(homedir(), 'id')),
+      waitForServiceState: async function (serviceName, state, target) {
+        return utils.waitUntil(
+          async () => {
+            return this.cloud
+              .executeCommandInHostOS(
+                `systemctl is-active ${serviceName} || true`,
+                target,
+              )
+              .then((serviceStatus) => {
+                return Promise.resolve(serviceStatus === state);
+              })
+              .catch((err) => {
+                Promise.reject(err);
+              });
+          },
+          120,
+          250,
+        );
+      }
     });
 
     // Network definitions - these are given to the testbot via the config sent via the config.js
@@ -319,5 +339,6 @@ module.exports = {
     "./tests/preload",
     "./tests/supervisor",
     "./tests/multicontainer",
+    "./tests/ssh-login",
   ],
 };
