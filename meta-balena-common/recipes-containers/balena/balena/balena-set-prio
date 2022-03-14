@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# TODO: Start balena-engine-containerd on a separate unit so that we can have a
+#       pid file for it? Would be more reliable than using the process name. (I
+#       think this would bring other complications, though.)
+
+DAEMON_PID=$(cat /var/run/balena-engine.pid)
+if [ ! -z "$DAEMON_PID" ]; then
+	chrt --rr --all-tasks --reset-on-fork --pid 35 $DAEMON_PID
+fi
+
+CONTAINERD_PID=$(pidof balena-engine-containerd)
+if [ ! -z "$CONTAINERD_PID" ]; then
+	chrt --rr --all-tasks --reset-on-fork --pid 35 $CONTAINERD_PID
+fi

@@ -21,6 +21,7 @@ SRC_URI = "\
 	file://balena-host.service \
 	file://balena-host.socket \
 	file://balena-healthcheck \
+	file://balena-set-prio \
 	file://var-lib-docker.mount \
 	file://balena.conf.storagemigration \
 	file://balena-tmpfiles.conf \
@@ -143,6 +144,7 @@ do_install() {
 
 	mkdir -p ${D}/usr/lib/balena
 	install -m 0755 ${WORKDIR}/balena-healthcheck ${D}/usr/lib/balena/balena-healthcheck
+	install -m 0755 ${WORKDIR}/balena-set-prio ${D}/usr/lib/balena/balena-set-prio
 
 	install -d ${D}${sysconfdir}/systemd/system/balena.service.d
 	install -c -m 0644 ${WORKDIR}/balena.conf.storagemigration ${D}${sysconfdir}/systemd/system/balena.service.d/storagemigration.conf

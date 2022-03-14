@@ -2,6 +2,10 @@
 
 set -o errexit
 
+# Keep updating the Engine priorities, as the Go runtime may start new threads
+# at any moment, and these threads need to have increased priority, too.
+/usr/lib/balena/balena-set-prio || true
+
 if ! balena image inspect balena-healthcheck-image > /dev/null 2>&1; then
 	balena image load -i /usr/lib/balena/balena-healthcheck-image.tar
 
