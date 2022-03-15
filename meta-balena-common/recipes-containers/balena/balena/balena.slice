@@ -1,0 +1,6 @@
+[Unit]
+Description=balena critical services slice
+Before=slices.target
+
+[Slice]
+CPUShares=262144

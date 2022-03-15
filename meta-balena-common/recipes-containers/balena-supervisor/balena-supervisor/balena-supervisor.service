@@ -23,6 +23,7 @@ Type=simple
 Restart=always
 RestartSec=10s
 WatchdogSec=180
+Slice=balena.slice
 SyslogIdentifier=balena-supervisor
 EnvironmentFile=/etc/balena-supervisor/supervisor.conf
 EnvironmentFile=-/tmp/update-supervisor.conf

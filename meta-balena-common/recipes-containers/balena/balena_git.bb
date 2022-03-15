@@ -18,6 +18,7 @@ SRCREV = "c41a2d5c1a102294994118434aefaa54a76e2814"
 SRC_URI = "\
 	git://github.com/balena-os/balena-engine.git;branch=${BALENA_BRANCH};destsuffix=git/src/import \
 	file://balena.service \
+	file://balena.slice \
 	file://balena-host.service \
 	file://balena-host.socket \
 	file://balena-healthcheck \
@@ -138,6 +139,7 @@ do_install() {
 	install -m 0644 ${WORKDIR}/balena.service ${D}/${systemd_unitdir}/system
 	install -m 0644 ${WORKDIR}/balena-host.service ${D}/${systemd_unitdir}/system
 	install -m 0644 ${WORKDIR}/balena-host.socket ${D}/${systemd_unitdir}/system
+	install -m 0644 ${WORKDIR}/balena.slice ${D}/${systemd_unitdir}/system
 
 	install -m 0644 ${WORKDIR}/var-lib-docker.mount ${D}/${systemd_unitdir}/system
 

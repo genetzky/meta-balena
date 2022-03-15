@@ -38,6 +38,7 @@ LimitNOFILE=1048576
 LimitNPROC=1048576
 LimitCORE=infinity
 WatchdogSec=360
+Slice=balena.slice
 Restart=always
 KillMode=process
 
