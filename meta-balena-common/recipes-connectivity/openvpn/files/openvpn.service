@@ -5,6 +5,7 @@ After=syslog.target network.target prepare-openvpn.service bind-etc-openvpn.serv
 ConditionFileNotEmpty=/etc/openvpn/openvpn.conf
 
 [Service]
+Slice=balena.slice
 PrivateTmp=true
 Restart=always
 RestartSec=10s

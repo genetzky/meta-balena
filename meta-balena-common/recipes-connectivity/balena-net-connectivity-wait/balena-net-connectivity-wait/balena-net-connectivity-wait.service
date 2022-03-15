@@ -19,6 +19,7 @@ After=dbus.service
 Before=balena-net-connectivity-wait.target
 
 [Service]
+Slice=balena.slice
 Type=oneshot
 RemainAfterExit=yes
 ExecStart=@BINDIR@/balena-net-connectivity-wait

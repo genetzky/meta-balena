@@ -21,6 +21,7 @@ After=resin-boot.service systemd-udev-settle.service
 ConditionPathExists=/mnt/state/rollback-altboot-breadcrumb
 
 [Service]
+slice=balena.slice
 Type=oneshot
 RemainAfterExit=yes
 ExecStart=/bin/sh /usr/bin/rollback-altboot

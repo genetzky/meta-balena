@@ -5,6 +5,7 @@ Requires=resin-state.service development-features.service
 After=resin-state.service sshdgenkeys.service os-sshkeys.service development-features.service
 
 [Service]
+Slice=balena.slice
 Environment="SSHD_OPTS="
 EnvironmentFile=-/etc/default/ssh
 EnvironmentFile=-/var/volatile/development-features

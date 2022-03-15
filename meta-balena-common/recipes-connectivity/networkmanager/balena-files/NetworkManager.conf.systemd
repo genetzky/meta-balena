@@ -3,6 +3,7 @@ Wants=balena-net-config.service bind-var-lib-NetworkManager.service
 After=balena-net-config.service bind-var-lib-NetworkManager.service
 
 [Service]
+Slice=balena.slice
 ExecStartPre=/bin/systemd-tmpfiles --remove /etc/tmpfiles.d/nm-tmpfiles.conf
 OOMScoreAdjust=-1000
 Restart=always

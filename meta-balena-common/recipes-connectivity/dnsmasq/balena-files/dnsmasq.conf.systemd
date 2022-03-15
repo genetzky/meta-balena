@@ -4,6 +4,7 @@ After=balena-net-config.service
 PartOf=config-json.target
 
 [Service]
+Slice=balena.slice
 Type=simple
 OOMScoreAdjust=-1000
 ExecStart=

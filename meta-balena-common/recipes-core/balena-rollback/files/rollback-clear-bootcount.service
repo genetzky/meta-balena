@@ -19,6 +19,7 @@ Before=umount.target
 Conflicts=umount.target
 
 [Service]
+Slice=balena.slice
 Type=oneshot
 RemainAfterExit=yes
 ExecStart=/bin/true

@@ -3,6 +3,7 @@ Description=DNS forwarder and DHCP server
 After=network.target
 
 [Service]
+Slice=balena.slice
 Type=forking
 PIDFile=/run/dnsmasq.pid
 ExecStartPre=/usr/bin/dnsmasq --test

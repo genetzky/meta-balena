@@ -21,6 +21,7 @@ After=resin-boot.service mnt-sysroot-active.service openvpn.service balena.servi
 ConditionPathExists=/mnt/state/rollback-health-breadcrumb
 
 [Service]
+Slice=balena.slice
 Type=oneshot
 RemainAfterExit=yes
 ExecStart=/bin/sh /usr/bin/rollback-health

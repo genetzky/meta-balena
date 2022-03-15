@@ -3,6 +3,7 @@ Description=OpenVPN Robust And Highly Flexible Tunneling Application On %I
 After=syslog.target network.target
 
 [Service]
+Slice=balena.slice
 PrivateTmp=true
 Type=forking
 PIDFile=/run/openvpn/%i.pid

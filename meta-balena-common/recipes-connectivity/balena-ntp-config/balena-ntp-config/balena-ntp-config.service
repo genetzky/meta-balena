@@ -5,6 +5,7 @@ After=balena-net-config.service
 PartOf=config-json.target
 
 [Service]
+Slice=balena.slice
 ExecStart=@BINDIR@/balena-ntp-config
 Type=oneshot
 RemainAfterExit=yes

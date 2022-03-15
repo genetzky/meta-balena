@@ -4,6 +4,7 @@ Requires=resin-boot.service
 After=resin-boot.service dnsmasq.service
 
 [Service]
+Slice=balena.slice
 Type=oneshot
 ExecStart=@BASE_BINDIR@/sh @BINDIR@/balena-proxy-config
 RemainAfterExit=yes
