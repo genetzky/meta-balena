@@ -55,7 +55,7 @@ module.exports = {
 						[
 							`tmp=$(mktemp)`, `&&`,
 							`jq 'del(.os.sshKeys)'`, `/mnt/boot/config.json`,
-							`>`,`$tmp`,`mv`, `$tmp`,`/mnt/boot/config.json`
+							`>`,`$tmp`,`&&`, `mv`, `$tmp`,`/mnt/boot/config.json`
 						].join(' '),
 						this.balena.uuid
 					)
@@ -80,6 +80,36 @@ module.exports = {
 							`${this.balena.uuid.slice(0, 7)}.local`),
 						{},
 						"Local SSH authentication without custom keys is not allowed in production mode"
+					)
+				}).then(() => {
+					return this.cloud.executeCommandInHostOS(
+						['tmp=$(mktemp)', `&&`,
+						`jq --arg keys '${this.keys.pubKey}' '. + {os: {sshKeys: [$keys]}}' "/mnt/boot/config.json" > $tmp`,
+						`&&`, `mv "$tmp" /mnt/boot/config.json`
+						].join(' '),
+						this.balena.uuid)
+				}).then(() => {
+					return this.waitForServiceState(
+						'openvpn.service',
+						'active',
+						this.balena.uuid,
+					)
+				}).then(async () => {
+					test.equals(
+						await this.worker.executeCommandInHostOS(
+							'echo -n pass',
+							`${this.balena.uuid.slice(0, 7)}.local`),
+						"pass",
+						"Local SSH authentication with custom keys is allowed in production mode"
+					)
+				}).then(() => {
+					return this.cloud.executeCommandInHostOS(
+						[
+							`tmp=$(mktemp)`, `&&`,
+							`jq 'del(.os.sshKeys)'`, `/mnt/boot/config.json`,
+							`>`,`$tmp`, `&&`, `mv`, `$tmp`,`/mnt/boot/config.json`
+						].join(' '),
+						this.balena.uuid
 					)
 				});
 			},
@@ -122,7 +152,7 @@ module.exports = {
 						[
 							`tmp=$(mktemp)`, `&&`,
 							`jq 'del(.os.sshKeys)'`, `/mnt/boot/config.json`,
-							`>`,`$tmp`,`mv`, `$tmp`,`/mnt/boot/config.json`
+							`>`,`$tmp`,`&&`, `mv`, `$tmp`,`/mnt/boot/config.json`
 						].join(' '),
 						this.balena.uuid
 					)
@@ -147,6 +177,63 @@ module.exports = {
 							`${this.balena.uuid.slice(0, 7)}.local`),
 						"pass",
 						"Local SSH authentication without custom keys is allowed in development mode"
+					)
+				}).then(() => {
+					const Bluebird = require('bluebird');
+					const keygen = Bluebird.promisify(require('ssh-keygen'));
+					const phonyKey = keygen({
+							location: this.sshKeyPath,
+						}).then( () => {
+							this.worker.executeCommandInHostOS(
+								['tmp=$(mktemp)', `&&`,
+									`jq --arg keys '${phonyKey}' '. + {os: {sshKeys: [$keys]}}' "/mnt/boot/config.json" > $tmp`,
+									`&&`, `mv "$tmp" /mnt/boot/config.json`
+								].join(' '),
+								`${this.balena.uuid.slice(0, 7)}.local`)
+						})
+				}).then(() => {
+					return this.waitForServiceState(
+						'openvpn.service',
+						'active',
+						this.balena.uuid,
+					)
+				}).then(() => {
+					test.throws(
+						this.worker.executeCommandInHostOS(
+							'echo -n pass',
+							`${this.balena.uuid.slice(0, 7)}.local`),
+						{},
+						"Local SSH authentication with phony custom keys is not allowed in development mode"
+					)
+				}).then(() => {
+					this.worker.executeCommandInHostOS(
+						['tmp=$(mktemp)', `&&`,
+							`jq --arg keys ${this.keys.pubKey} '. + {os: {sshKeys: [$keys]}}' "/mnt/boot/config.json" > $tmp`,
+							`&&`, `mv "$tmp" /mnt/boot/config.json`
+						].join(' '),
+						`${this.balena.uuid.slice(0, 7)}.local`)
+				}).then(() => {
+					return this.waitForServiceState(
+						'openvpn.service',
+						'active',
+						this.balena.uuid,
+					)
+				}).then(async () => {
+					await test.equals(
+						this.worker.executeCommandInHostOS(
+							'echo -n pass',
+							`${this.balena.uuid.slice(0, 7)}.local`),
+						"pass",
+						"Local SSH authentication with custom keys is allowed in development mode"
+					)
+				}).then(() => {
+					return this.cloud.executeCommandInHostOS(
+						[
+							`tmp=$(mktemp)`, `&&`,
+							`jq 'del(.os.sshKeys)'`, `/mnt/boot/config.json`,
+							`>`,`$tmp`,`mv`, `$tmp`,`/mnt/boot/config.json`
+						].join(' '),
+						this.balena.uuid
 					)
 				});
 			},
