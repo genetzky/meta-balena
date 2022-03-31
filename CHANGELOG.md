@@ -1,6 +1,13 @@
 Change log
 -----------
 
+# v2.95.8
+## (2022-03-31)
+
+* tests: cloud: ssh-login: Add custom SSK keys tests [Alex Gonzalez]
+* tests: os: Remove sshKeys test [Alex Gonzalez]
+* tests: cloud: Add SSH authentication tests [Alex Gonzalez]
+
 # v2.95.7
 ## (2022-03-23)
 

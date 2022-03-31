@@ -1,4 +1,50 @@
 - commits:
+    - subject: "tests: cloud: ssh-login: Add custom SSK keys tests"
+      hash: 57227339b947baaf57f6ba67a68227c4cb617f3e
+      body: |
+        Extend the SSH authentication tests to include using custom SSH keys.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+    - subject: "tests: os: Remove sshKeys test"
+      hash: 964229235a77ea1b2571dd5f9da957fe56f0361b
+      body: |
+        This is replaced by an SSH authentication test in the cloud suite, which
+        is more comprenhensive.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+    - subject: "tests: cloud: Add SSH authentication tests"
+      hash: 74b5f83131e961b1298b8ac0890af0b78a232bd6
+      body: >
+        This new test validates SSH authentication both in production and
+
+        development mode.
+
+
+        When in production mode, or when testing developing mode with phony keys,
+
+        the device is only accessible when managed so using the cloud suite was
+
+        the only option.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+  version: 2.95.8
+  date: 2022-03-31T20:46:11.976Z
+- commits:
     - subject: "hostapp-update-hooks: Always update legacy development variants to
         development mode"
       hash: 8c7bd8d87d0db97851528f97c4853097c63273e4
