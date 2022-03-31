@@ -1,4 +1,47 @@
 - commits:
+    - subject: "os-sshkeys: When ssh keys change, regenerate development configuration"
+      hash: 2996d00407980f76b206c5fa1cc9d88e2a20c950
+      body: |
+        The behaviour of the SSH connection depends on whether custom keys are
+        present or not. This commit calls out to generate the development mode
+        configuration file on ssh key change.
+
+        Fixes #2530
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+    - subject: "development-features: use os-helpers-devmode include file"
+      hash: 4814cbdeb7c12c2c1687cc459ff444d0fb1ab05f
+      body: |
+        The development mode configuration file is now generated on a helper
+        script.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+    - subject: "os-helpers: Add os-helpers-devmode"
+      hash: cf69bce9921297a15fc3609d21496051fa16fc10
+      body: |
+        This extracts the generation of the development mode configuration file
+        so it can be shared.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+  version: 2.95.5
+  title: "'Apply sshKeys change on development Mode'"
+  date: 2022-03-31T18:25:26.642Z
+- commits:
     - subject: "tests/os: wait for osconfig service to be inactive"
       hash: da59749c901057a55adaf990643fc235480156aa
       body: ""

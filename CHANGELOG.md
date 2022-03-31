@@ -1,6 +1,13 @@
 Change log
 -----------
 
+# v2.95.5
+## (2022-03-31)
+
+* os-sshkeys: When ssh keys change, regenerate development configuration [Alex Gonzalez]
+* development-features: use os-helpers-devmode include file [Alex Gonzalez]
+* os-helpers: Add os-helpers-devmode [Alex Gonzalez]
+
 # v2.95.4
 ## (2022-03-17)
 
