@@ -1,4 +1,18 @@
 - commits:
+    - subject: "os: tests: optimize connectivity tests"
+      hash: 769b36fa8424cb3e98057205702689b70bc02585
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Joseph Kogut <joseph@balena.io>
+        signed-off-by: Joseph Kogut <joseph@balena.io>
+      author: Joseph Kogut
+      nested: []
+  version: 2.95.13
+  title: "'os: tests: optimize connectivity tests'"
+  date: 2022-04-01T22:27:35.709Z
+- commits:
     - subject: "grub-efi: Remove patch passing secure boot status to the kernel"
       hash: fb171dc507348e11ab2c6ed894289f51689fc874
       body: >
